@@ -1,0 +1,643 @@
+openapi: 3.0.3
+info:
+  title: POI & Routing API
+  version: 1.0.0
+  description: >
+    API for querying points of interest (POIs), computing routes via GraphHopper,
+    and persisting public/private user routes.
+
+servers:
+  - url: http://localhost:8080
+
+security:
+  - ApiKeyAuth: []
+
+
+paths:
+  /about:
+    get:
+      summary: About the API development group
+      description: Returns the list of development team members and their IDs.
+      responses:
+        '200':
+          description: Development team information
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AboutResponse'
+  /pois:
+    get:
+      summary: List / search POIs
+      description: Query the open dataset of POIs by text, category, or proximity.
+      parameters:
+        - in: query
+          name: q
+          schema:
+            type: string
+          description: Free text search (e.g. "beach", "museum").
+        - in: query
+          name: category
+          schema:
+            type: string
+          description: Filter by category (e.g. "beach", "restaurant").
+        - in: query
+          name: lat
+          schema:
+            type: number
+            format: double
+          description: Latitude for nearby search.
+        - in: query
+          name: lon
+          schema:
+            type: number
+            format: double
+          description: Longitude for nearby search.
+        - in: query
+          name: radius
+          schema:
+            type: integer
+            minimum: 1
+          description: Radius in meters for nearby search.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 50
+            minimum: 1
+            maximum: 500
+          description: Maximum number of POIs to return.
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+          description: Pagination offset.
+      responses:
+        '200':
+          description: List of POIs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PoiListResponse'
+        '400':
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /pois/{id}:
+    get:
+      summary: Get POI by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: POI identifier.
+      responses:
+        '200':
+          description: POI details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poi'
+        '404':
+          description: POI not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /routes/compute:
+    post:
+      summary: Compute a route using GraphHopper
+      description: >
+        Computes a route between a sequence of POIs and/or raw coordinates using GraphHopper.
+        This endpoint does not persist the route.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RouteComputeRequest'
+      responses:
+        '200':
+          description: Computed route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteComputeResponse'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '502':
+          description: GraphHopper error or timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /routes:
+    post:
+      summary: Persist a route
+      description: >
+        Stores a route with associated POIs and public/private visibility.
+        The route geometry may come from /routes/compute or another source.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoutePersistRequest'
+      responses:
+        '201':
+          description: Route created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      summary: List persisted routes
+      description: >
+        Returns public or private routes. Private routes are typically filtered by the
+        authenticated user (ownerId is usually derived from auth context).
+      parameters:
+        - in: query
+          name: public
+          schema:
+            type: boolean
+          description: >
+            If true, only public routes are returned.
+            If false, only private routes are returned.
+            If omitted, returns both (subject to authorization rules).
+        - in: query
+          name: ownerId
+          schema:
+            type: string
+          description: >
+            Filter routes by owner ID. When omitted, backend may use the authenticated user.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 50
+            minimum: 1
+            maximum: 500
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            default: 0
+            minimum: 0
+      responses:
+        '200':
+          description: List of persisted routes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteListResponse'
+        '400':
+          description: Invalid query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /routes/{id}:
+    get:
+      summary: Get a persisted route by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: Route identifier.
+      responses:
+        '200':
+          description: Route details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+        '404':
+          description: Route not found or not accessible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Replace a persisted route
+      description: >
+        Full update of a route. All writable fields should be provided.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RouteUpdateRequest'
+      responses:
+        '200':
+          description: Updated route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Route not found or not accessible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    patch:
+      summary: Partially update a persisted route
+      description: >
+        Partial update. Only fields present in the request body will be updated.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoutePatchRequest'
+      responses:
+        '200':
+          description: Updated route
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Route not found or not accessible
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  schemas:
+    AboutResponse:
+      type: object
+      properties:
+        team:
+          type: array
+          description: List of development group members.
+          items:
+            type: object
+            required:
+              - id
+              - name
+            properties:
+              id:
+                type: string
+                example: dev_001
+              name:
+                type: string
+                example: "Alice Papadopoulou"
+              role:
+                type: string
+                nullable: true
+                example: "Backend Developer"
+      example:
+        team:
+          - id: "dev_001"
+            name: "Alice Papadopoulou"
+            role: "Backend Engineer"
+          - id: "dev_002"
+            name: "Nikos Georgiou"
+            role: "GIS Specialist"
+          - id: "dev_003"
+            name: "Maria Kanelou"
+            role: "Frontend Developer"
+
+    Poi:
+      type: object
+      required:
+        - id
+        - name
+        - location
+      properties:
+        id:
+          type: string
+          example: poi_1023
+        name:
+          type: string
+          example: Falassarna Beach
+        category:
+          type: string
+          example: beach
+        description:
+          type: string
+          nullable: true
+          example: Large sandy beach with turquoise water.
+        location:
+          type: object
+          required:
+            - lat
+            - lon
+          properties:
+            lat:
+              type: number
+              format: double
+              example: 35.49547
+            lon:
+              type: number
+              format: double
+              example: 23.41122
+        properties:
+          type: object
+          additionalProperties: true
+          description: Arbitrary metadata (amenities, tags, etc).
+
+    PoiListResponse:
+      type: object
+      properties:
+        query:
+          type: object
+          additionalProperties: true
+          description: Echo of the query parameters.
+        count:
+          type: integer
+          example: 3
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Poi'
+
+    RoutePoiRef:
+      type: object
+      description: Reference to a POI used inside a route.
+      properties:
+        poiId:
+          type: string
+          example: poi_1023
+        name:
+          type: string
+          nullable: true
+          description: Optional cached name of the POI at the time of route creation.
+          example: Falassarna Beach
+
+    GeoJsonLineString:
+      type: object
+      description: Minimal GeoJSON LineString representation.
+      required:
+        - type
+        - coordinates
+      properties:
+        type:
+          type: string
+          enum: [LineString]
+        coordinates:
+          type: array
+          items:
+            type: array
+            minItems: 2
+            maxItems: 3
+            items:
+              type: number
+          example:
+            - [23.41122, 35.49547]
+            - [23.41200, 35.49600]
+
+    RouteComputeRequest:
+      type: object
+      required:
+        - locations
+      properties:
+        locations:
+          type: array
+          minItems: 2
+          description: >
+            Ordered list of locations. Each can be a POI reference or raw coordinates.
+          items:
+            type: object
+            properties:
+              poiId:
+                type: string
+                description: If provided, backend will resolve POI coordinates.
+              lat:
+                type: number
+                format: double
+              lon:
+                type: number
+                format: double
+            oneOf:
+              - required: [poiId]
+              - required: [lat, lon]
+        vehicle:
+          type: string
+          default: car
+          example: bike
+          description: GraphHopper vehicle profile (e.g. car, bike, foot).
+        algorithm:
+          type: string
+          default: shortest
+          description: Routing algorithm hint (e.g. shortest, fastest).
+        format:
+          type: string
+          default: geojson
+          enum: [geojson, encodedpolyline]
+          description: Geometry format in the response.
+
+    RouteComputeResponse:
+      type: object
+      properties:
+        distanceMeters:
+          type: number
+          format: double
+          example: 13200.5
+        durationMillis:
+          type: integer
+          example: 950000
+        geometry:
+          oneOf:
+            - $ref: '#/components/schemas/GeoJsonLineString'
+            - type: string
+          description: >
+            Route geometry. GeoJSON LineString if format=geojson,
+            or encoded polyline string if format=encodedpolyline.
+        poiSequence:
+          type: array
+          description: Resolved sequence of POIs for this route (if any).
+          items:
+            $ref: '#/components/schemas/RoutePoiRef'
+        rawGraphhopper:
+          type: object
+          description: Optional raw response or subset from GraphHopper.
+
+    RoutePersistRequest:
+      type: object
+      required:
+        - name
+        - public
+        - geometry
+      properties:
+        name:
+          type: string
+          example: My Scenic Ride
+        public:
+          type: boolean
+          example: false
+        vehicle:
+          type: string
+          nullable: true
+          example: bike
+        poiSequence:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutePoiRef'
+        geometry:
+          $ref: '#/components/schemas/GeoJsonLineString'
+        encodedPolyline:
+          type: string
+          nullable: true
+          description: Optional encoded polyline representation of the route.
+        ownerId:
+          type: string
+          nullable: true
+          description: >
+            Owner of the route. May be taken from the authenticated user instead of this field.
+
+    Route:
+      type: object
+      properties:
+        id:
+          type: string
+          example: route_abc123
+        name:
+          type: string
+        public:
+          type: boolean
+        vehicle:
+          type: string
+          nullable: true
+        ownerId:
+          type: string
+          nullable: true
+        poiSequence:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutePoiRef'
+        geometry:
+          $ref: '#/components/schemas/GeoJsonLineString'
+        encodedPolyline:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    RouteListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Route'
+
+    RouteUpdateRequest:
+      type: object
+      description: Full route update payload.
+      required:
+        - name
+        - public
+        - geometry
+      properties:
+        name:
+          type: string
+        public:
+          type: boolean
+        vehicle:
+          type: string
+          nullable: true
+        poiSequence:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutePoiRef'
+        geometry:
+          $ref: '#/components/schemas/GeoJsonLineString'
+        encodedPolyline:
+          type: string
+          nullable: true
+
+    RoutePatchRequest:
+      type: object
+      description: Partial route update payload.
+      properties:
+        name:
+          type: string
+        public:
+          type: boolean
+        vehicle:
+          type: string
+          nullable: true
+        poiSequence:
+          type: array
+          items:
+            $ref: '#/components/schemas/RoutePoiRef'
+        geometry:
+          $ref: '#/components/schemas/GeoJsonLineString'
+        encodedPolyline:
+          type: string
+          nullable: true
+
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          example: invalid_request
+        message:
+          type: string
+          example: Missing lat/lon parameters.
+        details:
+          type: object
+          additionalProperties: true
+          nullable: true

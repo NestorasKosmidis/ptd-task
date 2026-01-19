@@ -1,0 +1,17 @@
+{
+  "name": "Demo route 1 (replaced)",
+  "public": false,
+  "vehicle": "car",
+  "poiSequence": [
+    { "poiId": "poi-1", "name": "Ionian University" },
+    { "poiId": "poi-2", "name": "Old Fortress" }
+  ],
+  "geometry": {
+    "type": "LineString",
+    "coordinates": [
+      [19.921359,39.624128],
+      [19.925261,39.624984]
+    ]
+  },
+  "encodedPolyline": null
+}

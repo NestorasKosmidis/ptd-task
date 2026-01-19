@@ -1,0 +1,6 @@
+{
+  "url": "/openapi.yml",
+  "dom_id": "#swagger-ui",
+  "deepLinking": true,
+  "persistAuthorization": true
+}

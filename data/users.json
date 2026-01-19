@@ -1,0 +1,14 @@
+[
+  {
+    "userId": "P2018020",
+    "name": "NESTORAS KOSMIDIS",
+    "apiKey": "key-P2018020-demo",
+    "rate": { "limitPerMinute": 60, "blockMinutes": 3 }
+  },
+  {
+    "userId": "demo2",
+    "name": "Demo User 2",
+    "apiKey": "key-demo2-demo",
+    "rate": { "limitPerMinute": 10, "blockMinutes": 1 }
+  }
+]

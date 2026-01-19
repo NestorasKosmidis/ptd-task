@@ -1,0 +1,115 @@
+[
+  {
+    "id": "poi-1",
+    "name": "Ionian University",
+    "category": "education",
+    "description": null,
+    "location": { "lat": 39.6243, "lon": 19.9217 },
+    "properties": { "source": "demo" }
+  },
+  {
+    "id": "poi-2",
+    "name": "Old Fortress",
+    "category": "attraction",
+    "description": null,
+    "location": { "lat": 39.6256, "lon": 19.9285 },
+    "properties": { "source": "demo" }
+  },
+  {
+    "id": "poi-3",
+    "name": "Museum of Asian Art",
+    "category": "culture",
+    "description": null,
+    "location": { "lat": 39.6257767, "lon": 19.9247062 },
+    "properties": {
+      "source": "openstreetmap",
+      "osm_type": "way",
+      "osm_id": 345780778,
+      "tourism": "museum",
+      "wikidata": "Q495148",
+      "wikipedia": "en:Museum of Asian Art of Corfu"
+    }
+  },
+  {
+    "id": "poi-4",
+    "name": "Palaiopolis - Mon Repos Museum",
+    "category": "culture",
+    "description": null,
+    "location": { "lat": 39.60625, "lon": 19.926145 },
+    "properties": {
+      "source": "openstreetmap",
+      "osm_type": "relation",
+      "osm_id": 15963750,
+      "tourism": "museum",
+      "museum": "history",
+      "wikidata": "Q824940",
+      "wikipedia": "el:Μουσείο Παλαιόπολης Κέρκυρας"
+    }
+  },
+  {
+    "id": "poi-5",
+    "name": "Student Restaurant",
+    "category": "food",
+    "description": null,
+    "location": { "lat": 39.6204625, "lon": 19.9153096 },
+    "properties": {
+      "source": "openstreetmap",
+      "osm_type": "way",
+      "osm_id": 964677921,
+      "amenity": "restaurant",
+      "building": "university",
+      "name:el": "Φοιτητική Λέσχη"
+    }
+  },
+  {
+    "id": "poi-6",
+    "name": "Ionian University - Paleo Psychiatrio Campus",
+    "category": "education",
+    "description": null,
+    "location": { "lat": 39.6206602, "lon": 19.9152499 },
+    "properties": {
+      "source": "openstreetmap",
+      "osm_type": "way",
+      "osm_id": 335189552,
+      "amenity": "university",
+      "education": "university",
+      "wikidata": "Q1672093",
+      "wikipedia": "el:Ιόνιο Πανεπιστήμιο",
+      "name:el": "Ιόνιο Πανεπιστήμιο - Παλαιό Ψυχιατρείο"
+    }
+  },
+  {
+    "id": "poi-7",
+    "name": "Ionian University Library",
+    "category": "education",
+    "description": null,
+    "location": { "lat": 39.6230507, "lon": 19.9150547 },
+    "properties": {
+      "source": "openstreetmap",
+      "osm_type": "way",
+      "osm_id": 964649949,
+      "amenity": "library",
+      "building": "university",
+      "wikidata": "Q123363349",
+      "name:el": "Βιβλιοθήκη Ιονίου Πανεπιστημίου"
+    }
+  },
+  {
+    "id": "poi-8",
+    "name": "History Department & Archival Department",
+    "category": "education",
+    "description": null,
+    "location": { "lat": 39.6229686, "lon": 19.9153059 },
+    "properties": {
+      "source": "openstreetmap",
+      "osm_type": "relation",
+      "osm_id": 18586425,
+      "building": "university",
+      "name:el": "Τμήμα Ιστορίας & Τμήμα Αρχειονομίας",
+      "addr:city": "Κέρκυρα",
+      "addr:street": "Ιωάννου Θεοτόκη",
+      "addr:housenumber": "72",
+      "addr:postcode": "49100"
+    }
+  }
+]

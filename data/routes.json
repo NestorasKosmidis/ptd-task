@@ -1,0 +1,295 @@
+[
+    {
+        "id": "route_68986e2ca9fec7a5",
+        "name": "Demo route 1 (replaced)",
+        "public": false,
+        "vehicle": "car",
+        "ownerId": "P2018020",
+        "poiSequence": [
+            {
+                "poiId": "poi-1",
+                "name": "Ionian University"
+            },
+            {
+                "poiId": "poi-2",
+                "name": "Old Fortress"
+            }
+        ],
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                [
+                    19.921359,
+                    39.624128
+                ],
+                [
+                    19.925261,
+                    39.624984
+                ]
+            ]
+        },
+        "encodedPolyline": null,
+        "createdAt": "2026-01-18T13:08:25+00:00",
+        "updatedAt": "2026-01-18T13:43:08+00:00"
+    },
+    {
+        "id": "route_69d8dc7b936ef820",
+        "name": "My Scenic Ride",
+        "public": false,
+        "vehicle": "bike",
+        "ownerId": "string",
+        "poiSequence": [
+            {
+                "poiId": "poi_1023",
+                "name": "Falassarna Beach"
+            }
+        ],
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                [
+                    23.41122,
+                    35.49547
+                ],
+                [
+                    23.412,
+                    35.496
+                ]
+            ]
+        },
+        "encodedPolyline": "string",
+        "createdAt": "2026-01-18T13:10:12+00:00",
+        "updatedAt": "2026-01-18T13:10:12+00:00"
+    },
+    {
+        "id": "route_068466ca2f679298",
+        "name": "UI route: Ionian University -> Old Fortress",
+        "public": false,
+        "vehicle": "car",
+        "ownerId": "P2018020",
+        "poiSequence": [
+            {
+                "poiId": "poi-1",
+                "name": "Ionian University"
+            },
+            {
+                "poiId": "poi-2",
+                "name": "Old Fortress"
+            }
+        ],
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                [
+                    19.921359,
+                    39.624128
+                ],
+                [
+                    19.921123,
+                    39.624015
+                ],
+                [
+                    19.921265,
+                    39.623863
+                ],
+                [
+                    19.921273,
+                    39.623827
+                ],
+                [
+                    19.921266,
+                    39.623755
+                ],
+                [
+                    19.921215,
+                    39.623671
+                ],
+                [
+                    19.921021,
+                    39.62355
+                ],
+                [
+                    19.920795,
+                    39.623395
+                ],
+                [
+                    19.920199,
+                    39.623038
+                ],
+                [
+                    19.920184,
+                    39.623021
+                ],
+                [
+                    19.920179,
+                    39.622976
+                ],
+                [
+                    19.919548,
+                    39.62242
+                ],
+                [
+                    19.921163,
+                    39.62112
+                ],
+                [
+                    19.921257,
+                    39.621034
+                ],
+                [
+                    19.921396,
+                    39.621048
+                ],
+                [
+                    19.921446,
+                    39.621045
+                ],
+                [
+                    19.921562,
+                    39.621013
+                ],
+                [
+                    19.922364,
+                    39.620567
+                ],
+                [
+                    19.922424,
+                    39.620542
+                ],
+                [
+                    19.922471,
+                    39.620533
+                ],
+                [
+                    19.922702,
+                    39.620581
+                ],
+                [
+                    19.923839,
+                    39.620846
+                ],
+                [
+                    19.923934,
+                    39.620892
+                ],
+                [
+                    19.924035,
+                    39.621022
+                ],
+                [
+                    19.924086,
+                    39.621071
+                ],
+                [
+                    19.924153,
+                    39.621112
+                ],
+                [
+                    19.924267,
+                    39.621168
+                ],
+                [
+                    19.924429,
+                    39.621233
+                ],
+                [
+                    19.924607,
+                    39.621327
+                ],
+                [
+                    19.9247,
+                    39.621397
+                ],
+                [
+                    19.924922,
+                    39.621609
+                ],
+                [
+                    19.924978,
+                    39.621683
+                ],
+                [
+                    19.925026,
+                    39.621782
+                ],
+                [
+                    19.925592,
+                    39.623159
+                ],
+                [
+                    19.925488,
+                    39.623684
+                ],
+                [
+                    19.925283,
+                    39.624904
+                ],
+                [
+                    19.925261,
+                    39.624984
+                ]
+            ]
+        },
+        "encodedPolyline": null,
+        "createdAt": "2026-01-18T14:13:17+00:00",
+        "updatedAt": "2026-01-18T14:13:17+00:00"
+    },
+    {
+        "id": "route_a39744ccd2866bf7",
+        "name": "My Scenic Ride",
+        "public": false,
+        "vehicle": "bike",
+        "ownerId": "string",
+        "poiSequence": [
+            {
+                "poiId": "poi_1023",
+                "name": "Falassarna Beach"
+            }
+        ],
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                [
+                    23.41122,
+                    35.49547
+                ],
+                [
+                    23.412,
+                    35.496
+                ]
+            ]
+        },
+        "encodedPolyline": "string",
+        "createdAt": "2026-01-18T22:58:34+00:00",
+        "updatedAt": "2026-01-18T22:58:34+00:00"
+    },
+    {
+        "id": "route_0cc9c3d6dd0c5cd6",
+        "name": "My Scenic Ride",
+        "public": false,
+        "vehicle": "bike",
+        "ownerId": "string",
+        "poiSequence": [
+            {
+                "poiId": "poi_1023",
+                "name": "Falassarna Beach"
+            }
+        ],
+        "geometry": {
+            "type": "LineString",
+            "coordinates": [
+                [
+                    23.41122,
+                    35.49547
+                ],
+                [
+                    23.412,
+                    35.496
+                ]
+            ]
+        },
+        "encodedPolyline": "string",
+        "createdAt": "2026-01-18T22:58:37+00:00",
+        "updatedAt": "2026-01-18T22:58:37+00:00"
+    }
+]

@@ -1,0 +1,9 @@
+{
+  "name": "Demo route 1",
+  "locations": [
+    { "poiId": "poi-1" },
+    { "poiId": "poi-2" }
+  ],
+  "vehicle": "car",
+  "format": "geojson"
+}

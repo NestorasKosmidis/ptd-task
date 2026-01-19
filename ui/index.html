@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>POI & Routing UI (Bonus)</title>
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <style>
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    header { padding: 10px 12px; border-bottom: 1px solid #ddd; }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    input, select, button { padding: 6px 8px; }
+    #map { height: calc(100vh - 72px); }
+    .hint { font-size: 12px; color: #444; }
+    .ok { color: #0a7; }
+    .bad { color: #c00; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="row">
+      <div>
+        <div class="hint">API Base</div>
+        <input id="apiBase" value="http://localhost:8080" size="22" />
+      </div>
+
+      <div>
+        <div class="hint">X-API-Key</div>
+        <input id="apiKey" value="key-P2018020-demo" size="22" />
+      </div>
+
+      <button id="btnLoad">Load POIs</button>
+
+      <div>
+        <div class="hint">From</div>
+        <select id="fromPoi"></select>
+      </div>
+
+      <div>
+        <div class="hint">To</div>
+        <select id="toPoi"></select>
+      </div>
+
+      <button id="btnCompute">Compute Route</button>
+
+      <button id="btnPersist" disabled>Persist Route</button>
+
+      <span id="status" class="hint"></span>
+    </div>
+    <div class="hint">
+      Bonus UI: OpenStreetMap + Leaflet. Χρησιμοποιεί τα endpoints /pois και /routes/compute και προαιρετικά /routes.
+    </div>
+  </header>
+
+  <div id="map"></div>
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script src="./main.js"></script>
+</body>
+</html>
