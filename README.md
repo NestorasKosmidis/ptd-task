@@ -10,15 +10,17 @@
 ---
 
 ## Περιγραφή
-Η εργασία υλοποιεί ένα **RESTful API** που επιτρέπει:
-- Αναζήτηση και ανάκτηση **Points of Interest (POIs)** από Open Data dataset
-- Υπολογισμό **διαδρομών** μεταξύ σημείων μέσω **GraphHopper Routing Engine**
-- **Αποθήκευση** διαδρομών, ενημέρωση (PUT/PATCH) και αναζήτηση με φίλτρα
-- **Ελεγχόμενη πρόσβαση** μέσω API Keys και **Rate Limiting ανά χρήστη**
-- Πλήρως λειτουργικό **Swagger UI** (με authentication)
-- **Bonus:** Minimal Web UI (Leaflet + OpenStreetMap) για οπτικοποίηση POIs και routes σε χάρτη
+Υλοποίηση RESTful API που:
+- Διαχειρίζεται **Points of Interest (POIs)** από Open Data (OSM/Overpass) + demo POIs
+- Υπολογίζει διαδρομές μέσω **GraphHopper**
+- Αποθηκεύει / ανακτά διαδρομές (persisted routes)
+- Παρέχει **authentication** μέσω **API Key** (`X-API-Key`)
+- Υποστηρίζει **rate limiting**
+- Τεκμηριώνεται με **Swagger UI** μέσω **OpenAPI 3.0** (`openapi.yml`)
+- Εκτελείται υποχρεωτικά με **docker compose**
+- **Bonus:** Web UI με χάρτη (Leaflet + OpenStreetMap)
 
-Η δομή παραμέτρων και αποκρίσεων ακολουθεί αυστηρά το παρεχόμενο **OpenAPI 3.0** specification.
+> Σημείωση: Ο φάκελος `graphhopper-data/` είναι runtime artifact του GraphHopper (παράγεται κατά την εκτέλεση) και δεν απαιτείται να είναι στο GitHub. Το σύστημα λειτουργεί πλήρως με `docker compose up`.
 
 ---
 
@@ -44,3 +46,4 @@
 ```powershell
 cd C:\Users\Admin\task-ptd
 docker compose up -d --build
+
