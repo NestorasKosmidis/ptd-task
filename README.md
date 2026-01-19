@@ -48,10 +48,10 @@
 docker compose ps
 
 
-###Τερματισμός:
+### Τερματισμός:
 docker compose down
 
-###Services & URLs
+### Services & URLs
 API: http://127.0.0.1:8080
 Swagger UI: http://127.0.0.1:8081
 GraphHopper: http://127.0.0.1:8989
