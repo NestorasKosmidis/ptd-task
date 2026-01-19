@@ -43,6 +43,22 @@
 ### Εκκίνηση
 Από τον φάκελο του project:
 
+
+### Έλεγχος κατάστασης:
+docker compose ps
+
+
+###Τερματισμός:
+docker compose down
+
+###Services & URLs
+API: http://127.0.0.1:8080
+Swagger UI: http://127.0.0.1:8081
+GraphHopper: http://127.0.0.1:8989
+ (health: http://127.0.0.1:8989/health
+)
+Bonus UI (Leaflet): http://127.0.0.1:8082
+
 ```powershell
 cd C:\Users\Admin\task-ptd
 docker compose up -d --build
