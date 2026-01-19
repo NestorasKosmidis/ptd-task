@@ -20,7 +20,7 @@
 - Εκτελείται υποχρεωτικά με **docker compose**
 - **Bonus:** Web UI με χάρτη (Leaflet + OpenStreetMap)
 
-> Σημείωση: Ο φάκελος `graphhopper-data/` είναι runtime artifact του GraphHopper (παράγεται κατά την εκτέλεση) και δεν απαιτείται να είναι στο GitHub. Το σύστημα λειτουργεί πλήρως με `docker compose up`.
+> Note: Ο φάκελος `graphhopper-data/` είναι runtime artifact του GraphHopper (παράγεται) και δεν είναι στο GitHub. Το σύστημα λειτουργεί με `docker compose up`.
 
 ---
 
