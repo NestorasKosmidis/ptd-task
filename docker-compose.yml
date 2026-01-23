@@ -17,7 +17,7 @@ services:
     volumes:
       - ./graphhopper-data:/data
     environment:
-      - JAVA_OPTS=-Xmx1g
+      - JAVA_OPTS=-Xmx4g -Xms1g
       - GRAPHOPPER_URL=https://download.geofabrik.de/europe/greece-latest.osm.pbf
 
   swagger-ui:
